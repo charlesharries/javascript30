@@ -1,0 +1,18 @@
+body h1, body p {
+  max-width: 600px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.hero {
+  position: relative;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+}
+
+h2 {
+  text-shadow: 10px 10px 10px rgba(0,0,0,0.5);
+  font-size: 100px;
+}

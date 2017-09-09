@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>JS Reference vs Copy</title>
+    <link rel="stylesheet" href="../assets/styles/main.css">
+  </head>
+  <body>
+    <h1>Javascript references and copies</h1>
+    <p>A bit of fiddling to understand the differences between references and copies in Javascript. Like what happens when you set one variable equal to another and then change that other.</p>
+    <p>Like in the array exercises, this one is played out mostly in the <a href="/_src">source code</a>.</p>
+    <script>
+      // start with strings, numbers and booleans
+      // if you change an original, it doesn't change the copy
+      let age = 100;
+      let age2 = age;
+      console.log(age, age2); // they're the same
+      age = 200;
+      console.log(age, age2); // now they're different
+
+      // now...
+      const players = ['Wes', 'Sarah', 'Charles', 'Ryan'];
+      const team = players;
+      console.log(players, team); // they're the same
+
+      team[3] = 'Lux';
+      // if you console.log(team) here you find that team has been changed, obviously
+      // but you also find that players has been changed
+
+      // updating arrays always reference back to the original, even if you're changing the copy
+
+      // to fix this, you have to actually copy the array.
+      const team2 = players.slice();
+
+      // or use the ES6 Spread:
+      const team3 = [...players];
+
+      // or finally
+      const team4 = Array.from(players);
+
+      // This whole behavior applies to objects as well
+      const person = {
+        name: 'Charles Harries',
+        age: '27'
+      };
+
+      const captain = person;
+      captain.number = 99; // doesn't copy, because 'person' doesn't have a number attribute
+
+      // let's make a copy instead:
+      const cap2 = Object.assign({}, person, { number: 99 }); // the third argument in .assign() takes new attributes
+      console.log
+
+      // Unfortunately this is pretty shallow and will only copy one level deep. I.e.:
+      const charles = {
+        name: 'Charles',
+        age: 27,
+        social: {
+          twitter: '@charlesharries',
+          facebook: 'charlesharries'
+        }
+      }
+
+      const dev = Object.assign({}, charles);
+      // That's great, you can change dev without changing charles...
+      // unless you try to change more than one level deep.
+
+      // dev.social.twitter = '@cooldude'
+      // >> '@cooldude'
+      // charles.social.twitter
+      // >> '@cooldude'
+
+      // Oops what happened here?
+
+      // There's a function for doing this called cloneDeep(), which will lead to the expected behaviour,
+      // but you won't be using it too much.
+
+      // The poor man's deep clone is:
+      const dev2 = JSON.parse(JSON.stringify(charles));
+      // but that's benchmarks very, very poorly.
+    </script>
+  </body>
+</html>

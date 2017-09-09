@@ -1,0 +1,7 @@
+.key {
+  transition: 0.07s;
+}
+
+.playing {
+  color: lightblue;
+}

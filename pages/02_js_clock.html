@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Javascript and CSS Clock</title>
+  <link rel="stylesheet" type="text/css" href="../assets/styles/main.css" />
+  <link rel="stylesheet" type="text/css" href="../assets/styles/clock.css"/>
+</head>
+
+<body>
+  <h1>A clock made in Javascript</h1>
+  <p>All the pieces are just <code>divs</code> bouncing around. The page gets the current time and animates the <code>div</code>s so they make the current time in a clock so modern and minimalist even Dieter Rams would be proud.</p>
+  <p>It's not ideal that the hour hand doesn't follow the minute hand <i>through</i> the hour but that's something to work on in the future.</p>
+
+  <div class="clock">
+    <div class="clock-face">
+      <div class="hand hour-hand"></div>
+      <div class="hand min-hand"></div>
+      <div class="hand second-hand"></div>
+    </div>
+  </div>
+
+  <script>
+    const secondHand = document.querySelector('.second-hand');
+    const minuteHand = document.querySelector('.min-hand');
+    const hourHand   = document.querySelector('.hour-hand');
+
+    function setDate() {
+      const now = new Date();
+
+      const seconds = now.getSeconds();
+      const secondsDegrees = ((seconds / 60) * 360) + 90; // to offset the 90 deg rotate in the CSS
+      if (secondsDegrees === 444) {
+        secondHand.style.transition = `0s`; // so the hand doesn't rewind back to 90 degrees
+      }
+      secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+
+      const minutes = now.getMinutes();
+      const minutesDegrees = ((minutes / 60) * 360) + 90;
+      if (minutesDegrees === 447) {
+        minuteHand.style.transition = `0s`;
+      }
+      minuteHand.style.transform = `rotate(${minutesDegrees}deg)`;
+
+      const hours = now.getHours();
+      const hoursDegrees = ((hours / 12) * 360) + 90;
+      if (hoursDegrees === 0) {
+        hourHand.style.transition = `0s`;
+      }
+      hourHand.style.transform = (`rotate(${hoursDegrees}deg)`);
+    }
+
+    setInterval(setDate, 1000);
+    setDate(); // so it sets automatically on page load, rather than waiting a second for the setInterval
+  </script>
+</body>
+</html>

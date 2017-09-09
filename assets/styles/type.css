@@ -1,0 +1,27 @@
+ul {
+  list-style-type: none;
+  margin: 0 auto;
+  padding: 0;
+}
+
+input {
+  padding: 10px;
+  font-size: 1em;
+}
+
+.suggestions {
+  padding: 20px;
+}
+
+.suggestions li {
+  text-transform: capitalize;
+}
+
+.population {
+  font-size: 0.75em;
+  color: gray;
+}
+
+.hl {
+  background: lightblue;
+}

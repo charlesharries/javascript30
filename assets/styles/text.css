@@ -1,0 +1,11 @@
+.voiceinator > * {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 15px;
+}
+
+textarea {
+  width: 400px;
+  height: 150px;
+  padding: 10px;
+}

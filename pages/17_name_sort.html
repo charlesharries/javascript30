@@ -1,0 +1,30 @@
+<html>
+<head>
+  <title>Band Name Sorting</title>
+  <link rel="stylesheet" type="text/css" href="../assets/styles/main.css" />
+</head>
+
+<body>
+  <h1>Sorting names without leading articles</h1>
+  <p>Consider that a lot of bands have 'The' or 'An' or something at the heads of their names. This tends to mess up simplistic alphabetising algorithms. So here's one that produces the bands in proper alphabetical order, keeping the leading articles intact but not counting them in the programmatic sorting.</p>
+  <p>This one isn't exactly interactive. Check out the source code <a href="/_src">here</a> though.</p>
+
+  <ul id="bands">
+
+  </ul>
+
+  <script>
+    const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
+
+    const sortedBands = bands.sort((a, b) => strip(a) > strip(b) ? 1 : -1);
+
+    function strip(bandName) {
+      return bandName.replace(/^(a |the |an )/i, '').trim(); // need the spaces so it doesn't catch 'anywhere'
+    }
+
+    document.querySelector('#bands').innerHTML =
+      sortedBands
+        .map(band => `<li>${band}</li>`)
+        .join('');
+  </script>
+</body>

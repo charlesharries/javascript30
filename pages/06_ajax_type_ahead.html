@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ajax Type Ahead???</title>
+  <link rel="stylesheet" type="text/css" href="../assets/styles/main.css" />
+  <link rel="stylesheet" type="text/css" href="../assets/styles/type.css" />
+</head>
+
+<body>
+  <h1>Finding cities and populations</h1>
+  <p>Uses AJAX and the <code>fetch()</code> function to grab information about the 1000 biggest cities in the United States from an endpoint <a href="https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json">elsewhere</a>. Then with some regex magic, you can search for those cities and it'll return any matching your search to you. Very basic but it's a good introduction to AJAX and a decent regex exercise.</p>
+
+  <form class="search-form">
+    <input type="text" class="search" placeholder="City or State">
+    <ul class="suggestions">
+      <li>Filter for a city</li>
+      <li>or a state</li>
+    </ul>
+  </form>
+
+  <script>
+    const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+
+    const cities = []
+
+    fetch(endpoint)
+      .then(blob => blob.json())
+      .then(data => cities.push(...data)); // Spread the data array into cities, basically it's pushing them one element at a time
+
+    function findMatches(wordToMatch, cities) {
+      return cities.filter(place => {
+        // here we need to figure out if the city OR state matches the wordToMatch
+        const regex = new RegExp(wordToMatch, 'gi'); // option: 'g'lobal and case 'i'nsensitive
+        return place.city.match(regex) || place.state.match(regex);
+      });
+    }
+
+    // Generic function to put commas into big numbers for easy reading
+    function numberWithCommas(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    function displayMatches() {
+      if (this.value === "") {
+        return suggestions.innerHTML = `
+          <li>Filter for a city</li>
+          <li>or a state</li>
+        `;
+      }
+      const matchArray = findMatches(this.value, cities);
+      const html = matchArray.map(place => {
+        const regex = new RegExp(this.value, 'gi');
+        const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
+        const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+        return `
+          <li>
+            <span class="name">${cityName}, ${stateName}</span>&nbsp;
+            <span class="population">${numberWithCommas(place.population)}</span>
+          </li>
+        `;
+      }).join('');
+      suggestions.innerHTML = html;
+    }
+
+    const searchInput = document.querySelector('.search');
+    const suggestions = document.querySelector('.suggestions');
+
+    searchInput.addEventListener('change', displayMatches);
+    searchInput.addEventListener('keyup', displayMatches);
+  </script>
+</body>
+</html>

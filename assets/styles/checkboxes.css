@@ -1,0 +1,16 @@
+.inbox {
+  margin-left: 60px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+}
+
+input + p {
+  margin-left: 15px;
+}
+
+input:checked + p {
+  text-decoration: line-through;
+}

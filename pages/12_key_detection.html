@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Key Detection</title>
+  <link rel="stylesheet" type="text/css" href="../assets/styles/main.css" />
+  <script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>
+</head>
+<body>
+  <h1>A key detection script</h1>
+  <p>Type in a certain sequence of letters and a special event will occur, how wonderful.</p>
+  <p>(Hint: the secret code is my name, all lowercase.)</p>
+  <p>It does pull from an <a href="http://www.cornify.com/">outside script</a>, but it's not a framework so it doesn't count as cheating.</p>
+
+  <script>
+    const pressed = [];
+    const secretCode = 'charles';
+
+    window.addEventListener('keyup', (e) => {
+      pressed.push(e.key);
+      pressed.splice(-secretCode.length - 1, pressed.length - secretCode.length);
+      if (pressed.join('').includes(secretCode)) {
+        cornify_add();
+        console.log("DING DING")
+      }
+      console.log(pressed);
+    });
+  </script>
+</body>
+</html>

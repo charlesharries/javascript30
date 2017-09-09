@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Shift-to-select Checkboxes</title>
+  <link rel="stylesheet" type="text/css" href="../assets/styles/main.css" />
+  <link rel="stylesheet" type="text/css" href="../assets/styles/checkboxes.css" />
+</head>
+
+<body>
+  <h1>Shift-clicking checkboxes</h1>
+  <p>Neat little trick to allow you to shift-click to check every box between a first box and the one that gets shift-clicked.</p>
+  <p>Decidedly confusing little piece of coding. Lots of balls to keep in the air as it were.</p>
+
+  <!-- A sample inbox from an email system like for example Gmail -->
+  <div class="inbox">
+    <div class="item">
+      <input type="checkbox">
+      <p>This is an inbox layout.</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Check one item</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Hold down your Shift key</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Check a lower item</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Everything in between should also be set to checked</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Try do it without any libraries</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Just regular JavaScript</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Good Luck!</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Oh hey and it works backwards (bottom-to-top) as well.</p>
+    </div>
+  </div>
+
+  <script>
+    const checkboxes = document.querySelectorAll('.inbox input[type=checkbox]');
+
+    let lastChecked;
+
+    function handleCheck(e) {
+      let inBetween = false;
+      // Make sure they have the shift key down, AND make sure that the user is checking it (as opposed to unchecking)
+      if (e.shiftKey && this.checked) {
+        // loop over every single checkbox
+        checkboxes.forEach(checkbox => {
+          console.log(checkbox);
+          if (checkbox === this || checkbox === lastChecked) {
+            inBetween = !inBetween;
+            console.log(`inBetween is ${inBetween}`);
+          }
+
+          if (inBetween) {
+            checkbox.checked = true;
+          }
+        })
+      }
+
+      lastChecked = this;
+    }
+
+    checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
+  </script>
+</body>
+</html>

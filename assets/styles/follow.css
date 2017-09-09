@@ -1,0 +1,29 @@
+a {
+  border-radius: 5px;
+}
+
+.menu {
+  padding: 0;
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  margin: 40px 0;
+}
+
+.menu a {
+  display: inline-block;
+  padding:5px;
+  margin:0 20px;
+}
+
+.highlight {
+  transition: all 0.2s;
+  position: absolute;
+  top:0;
+  background: linear-gradient(to bottom, lightpink, #ef8a97);
+  border: 1px solid #f17788;
+  left:0;
+  z-index: -1;
+  border-radius: 5px;
+  display: block;
+}

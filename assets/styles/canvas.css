@@ -1,0 +1,15 @@
+body {
+  max-width: initial;
+}
+
+h1, p {
+  max-width: 650px;
+  margin: 0 auto;
+  margin-bottom: 0.67em;
+}
+
+canvas {
+  border: 1px solid #333;
+  margin-top: 20px;
+  cursor: initial;
+}

@@ -1,0 +1,43 @@
+<html>
+<head>
+  <title>Moving Shadow</title>
+  <link rel="stylesheet" type="text/css" href="../assets/styles/main.css" />
+  <link rel="stylesheet" type="text/css" href="../assets/styles/mouse.css" />
+</head>
+
+<body>
+  <h1>Text-shadow on mouse move</h1>
+  <p>The text-shadow moves when you move your mouse within the box. This is accomplished by fiddling with the <code>offsetX</code> and <code>offsetY</code> of the <code>&lt;div&gt;</code> and <code>&lt;h2&gt;</code> elements, and then doing a snazzy piece of math to mess with the CSS.</p>
+  <p>You can also change the word(s), because why not? Just click on the word itself, it's <code>contenteditable</code>.</p>
+
+  <div class="hero">
+    <h2 contenteditable>DAMN</h2>
+  </div>
+
+  <script>
+    const hero = document.querySelector('.hero');
+    const text = hero.querySelector('h2');
+    const walk = 20; // 100 px
+
+    function shadow(e) {
+      // const width = hero.offsetWidth;
+      // const height = hero.offsetHeight;
+      const { offsetWidth: width, offsetHeight: height } = hero;
+      let { offsetX: x, offsetY: y } = e;
+      if (this !== e.target) {
+        x = x + e.target.offsetLeft;
+        y = y + e.target.offsetTop;
+      }
+      console.log(x, y, e.target.offsetTop);
+
+      const xWalk = Math.round((x / width * walk) - (walk / 2));
+      const yWalk = Math.round((y / height * walk) - (walk / 2));
+
+      text.style.textShadow = `${xWalk * -1}px ${yWalk * -1}px 10px rgba(0,0,0,0.5)`;
+    }
+
+    hero.addEventListener('mousemove', shadow);
+  </script>
+
+</body>
+</html>

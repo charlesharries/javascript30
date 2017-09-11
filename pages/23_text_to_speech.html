@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Speech Synthesis</title>
+  <link rel="stylesheet" href="../assets/styles/main.css">
+  <link rel="stylesheet" href="../assets/styles/text.css">
+</head>
+<body>
+    <a class="home" href="../index.html">< Back to Index</a>
+
+    <div class="voiceinator">
+
+      <h1>The Voiceinator 5000</h1>
+      <p>Basically it's just a text reader. But you can adjust the pitch and the rate at which the thing speaks, which can be pretty funny I guess.</p>
+
+      <select name="voice" id="voices">
+        <option value="">Select A Voice</option>
+      </select>
+
+      <label for="rate">Rate:</label>
+      <input name="rate" type="range" min="0" max="3" value="1" step="0.1">
+
+      <label for="pitch">Pitch:</label>
+      <input name="pitch" type="range" min="0" max="2" step="0.1">
+
+      <textarea name="text">Hello! I love JavaScript 👍</textarea>
+
+      <button id="stop">Stop!</button>
+      <button id="speak">Speak</button>
+
+    </div>
+
+<script>
+  const msg = new SpeechSynthesisUtterance();
+  let voices = [];
+  const voicesDropdown = document.querySelector('[name="voice"]');
+  const options = document.querySelectorAll('[type="range"], [name="text"]');
+  const speakButton = document.querySelector('#speak');
+  const stopButton = document.querySelector('#stop');
+
+  msg.text = document.querySelector('[name="text"]').value;
+
+  function populateVoices() {
+    voices = this.getVoices();
+    voicesDropdown.innerHTML = voices
+      .map(voice => `<option value="${voice.name}">${voice.name} ${voice.lang}</option>`)
+      .join('');
+    }
+
+
+  function setVoice() {
+    msg.voice = voices.find(voice => voice.name === this.value);
+    toggle();
+  }
+
+  function toggle(startOver = true) {
+    speechSynthesis.cancel();
+    if (startOver) {
+      speechSynthesis.speak(msg);
+    }
+  }
+
+  function setOption() {
+    msg[this.name] = this.value;
+    toggle();
+  }
+
+  speechSynthesis.addEventListener('voiceschanged', populateVoices);
+  voicesDropdown.addEventListener('change', setVoice);
+  options.forEach(option => option.addEventListener('change', setOption));
+  speakButton.addEventListener('click', toggle);
+  // gotta use an inline function otherwise the function just gets run on pageload
+  // and nothing happens when you click the stopButton...
+  stopButton.addEventListener('click', () => toggle(false));
+</script>
+
+</body>
+</html>

@@ -13,3 +13,9 @@ canvas {
   margin-top: 20px;
   cursor: initial;
 }
+
+.home {
+  max-width: 650px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}

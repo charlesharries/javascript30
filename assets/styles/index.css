@@ -1,0 +1,28 @@
+body {
+  text-align: left;
+}
+
+a {
+  color: #444;
+  text-decoration: none;
+}
+
+ul {
+  text-align: left;
+}
+
+li {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+  padding: 10px 0;
+}
+
+ul p,
+ul h3 {
+  margin: 0;
+}
+
+ul p {
+  font-size: 0.85rem;
+  color: #999;
+}

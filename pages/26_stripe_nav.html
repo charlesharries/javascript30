@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Follow Along Nav</title>
+  <link rel="stylesheet" href="../assets/styles/main.css"/>
+</head>
+<body>
+  <a class="home" href="../index.html">< Back to Index</a>
+  
+  <h1>Stripe-Style Traveling Dropdown</h1>
+  <p>Go ahead, hover over the buttons below. The dropdown will appear and move along with you as you hover from button to button. You can see a more complete version of it at <a href="https://stripe.com">Stripe's</a> website.</p>
+
+  <nav class="top">
+    <div class="dropdownBackground">
+      <span class="arrow"></span>
+    </div>
+
+    <ul class="cool">
+      <li>
+        <a href="#">About Me</a>
+        <div class="dropdown dropdown1">
+          <div class="bio">
+            <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAIA_wDGAAAAAQAAAAAAAAr6AAAAJGIxZmE4YWMxLTQ4YmUtNGMxYy1iYTY3LWE0YWRhOTJjYTEzMg.jpg">
+            <p>Charles makes websites all day and all night. He's currently losing his mind over React/Redux but the pieces are slowly coming together. Charles if you ever look back at this in the future, think back to how confusing everything seemed around now.</p>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <a href="#"> Wes Bos Courses I've taken</a>
+        <ul class="dropdown courses">
+          <li>
+            <span class="code">RFB</span>
+            <a href="https://ReactForBeginners.com">React For Beginners</a>
+          </li>
+          <li>
+            <span class="code">LRX</span>
+            <a href="http://LearnRedux.com">Learn Redux</a>
+          </li>
+          <li>
+            <span class="code">LN</span>
+            <a href="http://LearnNode.com">Learn Node</a>
+          </li>
+          <li>
+            <span class="code">JS30</span>
+            <a href="http://Javascript30.com">Javascript 30</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="#">Other Links</a>
+        <ul class="dropdown dropdown3">
+          <li><a class="button" href="http://twitter.com/charlesharries">Twitter</a></li>
+          <li><a class="button" href="http://instagram.com/charlesharries">Instagram</a></li>
+          <li><a class="button" href="http://charlesharries.co.uk/posts">Blog</a></li>
+          <li><a class="button" href="../index.html">Javascript Projects</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+<style>
+
+  nav {
+    position: relative;
+    perspective: 600px;
+  }
+
+  .cool > li > a {
+    color: #444;
+    text-decoration: none;
+    font-size: 14px;
+    background: rgba(0,0,0,0.2);
+    padding:10px 20px;
+    display: inline-block;
+    margin:20px;
+    border-radius:5px;
+  }
+
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .cool > li {
+    position: relative;
+    display:flex;
+    justify-content: center;
+  }
+
+  .dropdown {
+    opacity: 0;
+    position: absolute;
+    overflow: hidden;
+    padding:20px;
+    top:-20px;
+    border-radius:2px;
+    transition: all 0.5s;
+    transform: translateY(100px);
+    will-change: opacity;
+    display: none;
+  }
+
+  .trigger-enter .dropdown {
+    display: block;
+  }
+
+  .trigger-enter-active .dropdown {
+    opacity: 1;
+  }
+
+  .dropdownBackground {
+    width:100px;
+    height:100px;
+    position: absolute;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 50px 100px rgba(50,50,93,.1), 0 15px 35px rgba(50,50,93,.15), 0 5px 15px rgba(0,0,0,.1);
+    transition:all 0.3s, opacity 0.1s, transform 0.2s;
+    transform-origin: 50% 0;
+    display: flex;
+    justify-content: center;
+    opacity:0;
+  }
+
+  .dropdownBackground.open {
+    opacity: 1;
+  }
+
+  .arrow {
+    position: absolute;
+    width:20px;
+    height:20px;
+    display: block;
+    background:white;
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  .bio {
+    min-width:500px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1.7;
+    text-align: left;
+  }
+
+  .bio img {
+    float:left;
+    margin-right:20px;
+    width: 100px;
+    height: 100px;
+  }
+
+  .courses {
+    min-width:300px;
+  }
+
+  .courses li {
+    padding: 10px 0;
+    display: block;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+  }
+
+  .dropdown a {
+    text-decoration: none;
+    color: lightblue;
+  }
+
+  a.button {
+    background:black;
+    display: block;
+    padding:10px;
+    color:white;
+    margin-bottom: 10px;
+  }
+
+
+  /* Matches Twitter, TWITTER, twitter, tWitter, TWiTTeR... */
+  .button[href*=twitter] { background: #019FE9; }
+  .button[href*=instagram] {
+    /* all credit here goes to codepen.io/katydecorah */
+    background:
+      radial-gradient(circle farthest-corner at 35% 90%, #fec564, transparent 50%),
+      radial-gradient(circle farthest-corner at 0 140%, #fec564, transparent 50%),
+      radial-gradient(ellipse farthest-corner at 0 -25%, #5258cf, transparent 50%),
+      radial-gradient(ellipse farthest-corner at 20% -50%, #5258cf, transparent 50%),
+      radial-gradient(ellipse farthest-corner at 100% 0, #893dc2, transparent 50%),
+      radial-gradient(ellipse farthest-corner at 60% -20%, #893dc2, transparent 50%),
+      radial-gradient(ellipse farthest-corner at 100% 100%, #d9317a, transparent),
+      linear-gradient(#6559ca, #bc318f 30%, #e33f5f 50%, #f77638 70%, #fec66d 100%);
+    }
+  .button[href*=posts] { background: #ff1277; }
+  .button[href*=index] { background: lightblue }
+
+</style>
+
+<script>
+  const triggers = document.querySelectorAll('.cool > li');
+  const background = document.querySelector('.dropdownBackground');
+  const nav = document.querySelector('.top');
+
+  function handleEnter() {
+    this.classList.add('trigger-enter');
+    // if below was a regular function, 'this' wouldn't work
+    setTimeout(() => {
+      // only run the second half if there's already a 'trigger-enter' class on 'this'
+      // there's a small chance that someone could mouseleave before 150ms and it'll try
+      // to add 'trigger-enter-active' after already trying to remove it.
+      this.classList.contains('trigger-enter') && this.classList.add('trigger-enter-active');
+    }, 150)
+    background.classList.add('open');
+
+    // find the dropdown that exists within the thing that got hovered
+    const dropdown = this.querySelector('.dropdown');
+    const dropdownCoords = dropdown.getBoundingClientRect();
+    const navCoords = nav.getBoundingClientRect();
+
+    const coords = {
+      height: dropdownCoords.height,
+      width: dropdownCoords.width,
+      top: dropdownCoords.top - navCoords.top,
+      left: dropdownCoords.left - navCoords.left
+    };
+
+    background.style.setProperty('width', `${coords.width}px`);
+    background.style.setProperty('height', `${coords.height}px`);
+    background.style.setProperty('transform', `translate(${coords.left}px, ${coords.top}px)`);
+  }
+
+  function handleLeave() {
+    // do it all at once because who cares
+    this.classList.remove('trigger-enter', 'trigger-enter-active');
+    background.classList.remove('open');
+  }
+
+  triggers.forEach(trigger => trigger.addEventListener('mouseenter', handleEnter));
+  triggers.forEach(trigger => trigger.addEventListener('mouseleave', handleLeave));
+</script>
+
+</body>
+</html>
